@@ -14,19 +14,28 @@ class OAuthController extends Controller {
     const state = ctx.request.body.state;
     const url = `${GITHUB.ACCESS_TOKEN_URI}?client_id=${GITHUB.CLIENT_ID}&client_secret=${GITHUB.CLIENT_SECRET}&code=${code}&redirect_uri=${GITHUB.REDIRECT_URI}&state=${state}`;
     const res = await this.ctx.curl(url, { dataType: 'json' });
-    console.log(res);
-    const user = await ctx.curl('https://api.github.com/user', {
-      method: 'GET',
-      dataType: 'json',
-      headers: {
-        Authorization: `token ${res.data.access_token}`,
-      },
-    })
-    ctx.body = {
-      code: 'success',
-      data: user,
-      message: 'message',
-    };
+    if (this.ctx.session.user) {
+      ctx.body = {
+        code: 'success',
+        data: ctx.session.user,
+        message: 'message',
+      };
+    } else {
+      const user = await ctx.curl('https://api.github.com/user', {
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          Authorization: `token ${res.data.access_token}`,
+        },
+      })
+      this.ctx.session.user = user.data
+      ctx.body = {
+        code: 'success',
+        data: user.data,
+        message: 'message',
+      };
+    }
+
   }
 }
 

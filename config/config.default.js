@@ -1,7 +1,4 @@
-/* eslint valid-jsdoc: "off" */
-
 'use strict';
-
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -16,11 +13,21 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1566887365290_3511';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [ 'auth' ];
   config.security = {
     csrf: {
       enable: false,
     },
+  };
+  config.session = {
+    key: 'dbs_sId',
+    maxAge: 3600 * 1000, // 1 h
+    httpOnly: true,
+    encrypt: false,
+    renew: true,
+  };
+  config.sessionMongoose = {
+    name: 'Session',
   };
   config.mongoose = {
     client: {

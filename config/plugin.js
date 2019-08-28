@@ -10,4 +10,9 @@ module.exports = {
     enable: true,
     package: 'egg-mongoose',
   },
+  sessionMongoose: {
+    enable: true,
+    package: 'egg-session-mongoose',
+  },
+
 };

@@ -1,0 +1,6 @@
+{
+  "name": "egg-ua",
+  "eggPlugin": {
+	"name": "ua"
+  }
+}
