@@ -12,13 +12,21 @@ class ProjectController extends Controller {
       .catch(error => {
         console.log(error);
       });
+    this.ctx.body = {
+      code: 0,
+      data: {},
+      message: 'success',
+    };
   }
+
   async update() {
     console.log('xxxx');
   }
+
   async delete() {
     console.log('xxxx');
   }
+
   async get() {
     console.log('xxxx');
   }

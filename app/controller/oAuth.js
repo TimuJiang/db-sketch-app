@@ -37,6 +37,14 @@ class OAuthController extends Controller {
     }
 
   }
+  async logout() {
+    if (this.ctx.session.user) this.ctx.session.user = null
+    this.ctx.body = {
+      code: 'success',
+      data: {},
+      message: 'logout',
+    };
+  }
 }
 
 module.exports = OAuthController;
