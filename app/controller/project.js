@@ -4,7 +4,7 @@ const Controller = require('egg').Controller;
 class ProjectController extends Controller {
   async create() {
     const { name, tables, links } = this.ctx.request.body;
-    const project = new this.ctx.model.Project({ name, tables, links });
+    const project = new this.ctx.model.Project({ user_id: this.ctx.session.user.id, name, tables, links });
     project.save()
       .then(res => {
         console.log(res);
@@ -28,7 +28,12 @@ class ProjectController extends Controller {
   }
 
   async get() {
-    console.log('xxxx');
+    const list = await this.ctx.model.Project.find({ user_id: this.ctx.session.user.id });
+    this.ctx.body = {
+      code: 0,
+      data: list,
+      message: 'success',
+    };
   }
 }
 

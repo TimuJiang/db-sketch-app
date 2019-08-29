@@ -6,6 +6,9 @@ module.exports = app => {
     id: {
       type: String,
     },
+    user_id: {
+      type: String,
+    },
     name: {
       type: String,
     },
