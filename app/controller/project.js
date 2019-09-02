@@ -35,7 +35,21 @@ class ProjectController extends Controller {
   }
 
   async delete() {
-    console.log('xxxx');
+    const { id } = this.ctx.request.body;
+    const result = await this.ctx.model.Project.deleteOne({ _id: id });
+    if (result) {
+      this.ctx.body = {
+        code: 0,
+        data: {},
+        message: 'success',
+      };
+    } else {
+      this.ctx.body = {
+        code: 2,
+        data: {},
+        message: 'error',
+      };
+    }
   }
 
   async get() {
